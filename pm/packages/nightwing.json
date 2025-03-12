@@ -1,1 +1,11 @@
-{}
+{
+  "name": "test",
+  "description": "Reads the contents of a file.",
+  "script": "test-command.js",
+  "commands": [
+    {
+      "command": "test",
+      "action": "read"
+    }
+  ]
+}
