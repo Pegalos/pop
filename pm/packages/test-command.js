@@ -1,5 +1,4 @@
-case "test":
-{
- output = "Hello, world!";
+function testCommand() {
+  console.log("Hello, world!");
 }
-break;
+testCommand();
