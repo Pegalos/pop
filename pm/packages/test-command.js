@@ -1,3 +1,5 @@
-function test() {
-  console.log("Hello, World!");
+case "test":
+{
+ output = "Hello, world!";
 }
+break;
