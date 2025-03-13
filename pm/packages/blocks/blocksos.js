@@ -16,15 +16,16 @@ function getVersionUrl(version) {
 }
 
 // Function to handle the command-line arguments
-function handleCommand(args) {
-    if (args[0] === '-i' && args[1] && args[1].startsWith('--@')) {
-        const version = args[1];
+function handleBlocksCommand(commandArgs) {
+    if (commandArgs[0] === '-i' && commandArgs[1] && commandArgs[1].startsWith('--@')) {
+        const version = commandArgs[1];
         getVersionUrl(version);
     } else {
         console.log('Invalid command');
     }
 }
 
-// Example: Simulating the command input
-const args = process.argv.slice(2);  // Get command-line arguments
-handleCommand(args);
+// Export the main function that will be called by the package manager
+return function(inputArgs) {
+    handleBlocksCommand(inputArgs);
+};
