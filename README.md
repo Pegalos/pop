@@ -10,3 +10,6 @@ OR use ```pop refresh pkgname``` to refresh a specific package (wip)
 
 ## Remember, check your version!
 Use ```pop version``` to make sure you're on the latest commit.
+
+## How to install packages
+Use ```pop install pkgname``` to install your chosen package
