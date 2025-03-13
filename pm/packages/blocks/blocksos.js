@@ -8,30 +8,23 @@ function getVersionUrl(version) {
     // Check if the user asked for the latest or a specific version
     if (version === '@latest') {
         url = 'https://cdn.jsdelivr.net/gh/blockscorp/blocksos@latest/'; // Adjust to the actual CDN URL
+        return `pop:blocks:latest ${url}`;
     } else if (version.startsWith('@')) {
         url = `https://cdn.jsdelivr.net/gh/blockscorp/blocksos${version}/`; // Adjust for versioned URLs
+        return `pop:blocks:${version.substring(1)} ${url}`;
     } else {
-        console.log('Invalid version specified. Use @latest or @version');
-        return;
+        return 'pop:blocks:error Invalid version specified. Use @latest or @version';
     }
-
-    console.log(`The URL for the specified version is: ${url}`);
-    return url;
 }
 
 // Function to handle the command-line arguments
 function handleBlocksCommand(args) {
-    // Debug line to see what arguments we're getting
-    console.log("Received args:", args);
-    
     // Remove the command name from the arguments
     const cmdArgs = args.slice(1);
     
     // Check if we have any arguments
     if (!cmdArgs || cmdArgs.length === 0) {
-        console.log("Usage: bm -i @latest");
-        console.log("   or: bm -i @<version>");
-        return;
+        return 'pop:blocks:usage bm -i @latest or bm -i @<version>';
     }
 
     // Make the command more flexible
@@ -39,12 +32,11 @@ function handleBlocksCommand(args) {
     const versionArg = cmdArgs[1] || '@latest'; // Default to @latest if no version specified
 
     if (installFlag) {
-        getVersionUrl(versionArg);
+        return getVersionUrl(versionArg);
     } else {
-        console.log("Usage: bm -i @latest");
-        console.log("   or: bm -i @<version>");
+        return 'pop:blocks:usage bm -i @latest or bm -i @<version>';
     }
 }
 
-// Execute the command with the provided arguments
-handleBlocksCommand(args);
+// Execute the command with the provided arguments and return the result
+return handleBlocksCommand(args);
