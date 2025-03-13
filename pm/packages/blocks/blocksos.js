@@ -25,7 +25,5 @@ function handleBlocksCommand(commandArgs) {
     }
 }
 
-// Export the main function that will be called by the package manager
-return function(inputArgs) {
-    handleBlocksCommand(inputArgs);
-};
+// Make the function accessible in the command registry
+handleBlocksCommand(args);
