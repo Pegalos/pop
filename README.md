@@ -9,6 +9,7 @@ use ```pop refresh``` to refresh all your installed packages
 (WARNING: DO NOT USE ```reset``` UNLESS YOU DO NOT CARE ABOUT LOSING ALL YOUR DATA)
 
 Sometimes it takes around 10-20 minutes for pop to refresh from the last update, so be patient.
+
 if ur running on electron, then idfk how long itll take to update lol
 
 ## Remember, check your version!
