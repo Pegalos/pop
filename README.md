@@ -6,7 +6,9 @@ use this in krakencore, you cant access this elsewhere unless you are smart
 
 ## Not getting the latest package?
 use ```pop refresh``` to refresh all your installed packages
-OR use ```pop refresh pkgname``` to refresh a specific package (wip)
+(WARNING: DO NOT USE ```reset``` UNLESS YOU DO NOT CARE ABOUT LOSING ALL YOUR DATA)
+
+Sometimes it takes around 10-20 minutes for pop to refresh from the last update, so be patient.
 
 ## Remember, check your version!
 Use ```pop version``` to make sure you're on the latest commit.
