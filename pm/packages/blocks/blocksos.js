@@ -1,3 +1,100 @@
+function startX() {
+    const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
+    console.log(`bm:display [${timestamp}] Launching BlocksOS GUI...`);
+
+    // Create a full-screen div to act as the "desktop"
+    const desktop = document.createElement('div');
+    desktop.id = 'blocksos-desktop';
+    Object.assign(desktop.style, {
+        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+        background: '#202020', color: '#ffffff', fontFamily: 'monospace',
+        display: 'flex', alignItems: 'center', justifyContent: 'center'
+    });
+
+    // Create a window (basic movable div)
+    const window = document.createElement('div');
+    window.id = 'blocksos-window';
+    Object.assign(window.style, {
+        width: '400px', height: '300px', background: '#333',
+        border: '2px solid #888', borderRadius: '5px',
+        position: 'absolute', top: '50px', left: '50px',
+        boxShadow: '3px 3px 10px rgba(0,0,0,0.5)', padding: '10px'
+    });
+
+    // Window title bar (draggable)
+    const titleBar = document.createElement('div');
+    titleBar.innerText = 'BlocksOS Terminal';
+    Object.assign(titleBar.style, {
+        background: '#444', padding: '5px', cursor: 'grab'
+    });
+
+    // Fake terminal area
+    const terminal = document.createElement('div');
+    terminal.innerHTML = "Welcome to BlocksOS GUI!<br>Type 'exit' to close.";
+    Object.assign(terminal.style, {
+        padding: '10px', overflow: 'auto', height: 'calc(100% - 30px)'
+    });
+
+    // Append everything
+    window.appendChild(titleBar);
+    window.appendChild(terminal);
+    desktop.appendChild(window);
+    document.body.appendChild(desktop);
+
+    // Draggable Window Logic
+    let offsetX, offsetY, isDragging = false;
+    titleBar.onmousedown = (e) => {
+        isDragging = true;
+        offsetX = e.clientX - window.offsetLeft;
+        offsetY = e.clientY - window.offsetTop;
+        titleBar.style.cursor = 'grabbing';
+    };
+    document.onmousemove = (e) => {
+        if (isDragging) {
+            window.style.left = `${e.clientX - offsetX}px`;
+            window.style.top = `${e.clientY - offsetY}px`;
+        }
+    };
+    document.onmouseup = () => { isDragging = false; titleBar.style.cursor = 'grab'; };
+
+    // Command Handling (Fake Terminal)
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            if (terminal.innerText.includes('exit')) {
+                desktop.remove();
+                console.log(`bm:display [${timestamp}] GUI closed.`);
+            }
+        }
+    });
+
+    return `bm:display [${timestamp}] GUI started.`;
+}
+
+function handleBlocksCommand(args) {
+    const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
+    const cmdArgs = args.slice(1);
+
+    if (!cmdArgs || cmdArgs.length === 0) {
+        return `pop:blocks:usage [${timestamp}] bm -dev --starts`;
+    }
+
+    const devFlag = cmdArgs[0] === '-dev';
+    const actionArg = cmdArgs[1];
+
+    if (devFlag) {
+        if (actionArg === '--starts') {
+            return startX();
+        } else {
+            return `bm:error [${timestamp}] Invalid flag. Use --starts`;
+        }
+    } else {
+        return `bm:usage [${timestamp}] bm -dev --starts`;
+    }
+}
+
+return handleBlocksCommand(args);
+
+
 function getVersionUrl(version) {
     const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
     if (!version.startsWith('--@')) {
