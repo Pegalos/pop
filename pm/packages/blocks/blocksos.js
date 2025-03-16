@@ -70,31 +70,6 @@ function startX() {
     return `bm:display [${timestamp}] GUI started.`;
 }
 
-function handleBlocksCommand(args) {
-    const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
-    const cmdArgs = args.slice(1);
-
-    if (!cmdArgs || cmdArgs.length === 0) {
-        return `pop:blocks:usage [${timestamp}] bm -dev --startx`;
-    }
-
-    const devFlag = cmdArgs[0] === '-dev';
-    const actionArg = cmdArgs[1];
-
-    if (devFlag) {
-        if (actionArg === '--starts') {
-            return startX();
-        } else {
-            return `bm:error [${timestamp}] Invalid flag. Use --startx`;
-        }
-    } else {
-        return `bm:usage [${timestamp}] bm -dev --startx`;
-    }
-}
-
-return handleBlocksCommand(args);
-
-
 function getVersionUrl(version) {
     const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
     if (!version.startsWith('--@')) {
@@ -129,19 +104,27 @@ function handleBlocksCommand(args) {
     const cmdArgs = args.slice(1);
     
     if (!cmdArgs || cmdArgs.length === 0) {
-        return `pop:blocks:usage [${timestamp}] bm -i --@latest or bm -i --@<version>`;
+        return `pop:blocks:usage [${timestamp}] Usage: bm -dev --startx | bm -i --@latest`;
     }
 
-    const installFlag = cmdArgs[0] === '-i' || cmdArgs[0] === '--install';
-    const versionArg = cmdArgs[1];
+    const firstArg = cmdArgs[0];
+    const secondArg = cmdArgs[1];
 
-    if (installFlag) {
-        if (!versionArg) {
+    if (firstArg === '-dev') {
+        if (secondArg === '--startx') {
+            return startX();
+        } else {
+            return `bm:error [${timestamp}] Invalid flag. Use --startx`;
+        }
+    } 
+    else if (firstArg === '-i' || firstArg === '--install') {
+        if (!secondArg) {
             return `bm:error [${timestamp}] Version argument required (--@latest or --@<version>)`;
         }
-        return getVersionUrl(versionArg);
-    } else {
-        return `bm:usage [${timestamp}] bm -i --@latest or bm -i --@<version>`;
+        return getVersionUrl(secondArg);
+    } 
+    else {
+        return `bm:usage [${timestamp}] Usage: bm -dev --startx | bm -i --@latest`;
     }
 }
 
