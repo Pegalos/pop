@@ -75,7 +75,7 @@ function handleBlocksCommand(args) {
     const cmdArgs = args.slice(1);
 
     if (!cmdArgs || cmdArgs.length === 0) {
-        return `pop:blocks:usage [${timestamp}] bm -dev --starts`;
+        return `pop:blocks:usage [${timestamp}] bm -dev --startx`;
     }
 
     const devFlag = cmdArgs[0] === '-dev';
@@ -85,10 +85,10 @@ function handleBlocksCommand(args) {
         if (actionArg === '--starts') {
             return startX();
         } else {
-            return `bm:error [${timestamp}] Invalid flag. Use --starts`;
+            return `bm:error [${timestamp}] Invalid flag. Use --startx`;
         }
     } else {
-        return `bm:usage [${timestamp}] bm -dev --starts`;
+        return `bm:usage [${timestamp}] bm -dev --startx`;
     }
 }
 
