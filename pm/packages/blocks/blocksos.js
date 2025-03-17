@@ -23,14 +23,14 @@ function startX() {
 
     // Window title bar (draggable)
     const titleBar = document.createElement('div');
-    titleBar.innerText = 'BlocksOS Terminal';
+    titleBar.innerText = 'BlocksOS';
     Object.assign(titleBar.style, {
         background: '#444', padding: '5px', cursor: 'grab'
     });
 
     // Fake terminal area
     const terminal = document.createElement('div');
-    terminal.innerHTML = "Welcome to BlocksOS GUI!<br>Type 'exit' to close.";
+    terminal.innerHTML = "Welcome to BlocksOS GUI!";
     Object.assign(terminal.style, {
         padding: '10px', overflow: 'auto', height: 'calc(100% - 30px)'
     });
