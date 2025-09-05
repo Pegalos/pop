@@ -1,4 +1,6 @@
-# pop
+<p align="center">
+  <img src="poplogo.png" alt="pop logo" width="240">
+</p>
 
 ## The official KrakenCore package manager
 yes this is real uhh
