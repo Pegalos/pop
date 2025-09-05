@@ -1,3 +1,7 @@
 async function handleBlocksCommand(args) {
-    return "hello world";
+    const cmd = args && args[0];
+    if (cmd === "test") {
+        return "hello world";
+    }
+    // Add more commands as needed
 }
