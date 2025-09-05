@@ -1,3 +1,27 @@
+if (!globalThis.bmCommandRegistry) {
+    globalThis.bmCommandRegistry = {};
+}
+
+function handleBlocksCommand(args) {
+    const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
+    const cmdArgs = args.slice(1);
+    const firstArg = cmdArgs[0];
+    const secondArg = cmdArgs[1];
+
+    if (firstArg && globalThis.bmCommandRegistry[firstArg]) {
+        return globalThis.bmCommandRegistry[firstArg](cmdArgs);
+    }
+    if (firstArg === '-i' || firstArg === '--install') {
+        if (!secondArg) {
+            return `bm:error [${timestamp}] Version argument required (--@latest or --@<version>)`;
+        }
+        return getVersionUrl(secondArg);
+    }
+    return `bm:usage [${timestamp}] Usage: bm -i --@latest OR bm test`;
+}
+
+return handleBlocksCommand(args);
+
 function getVersionUrl(version) {
     const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
     if (!version.startsWith('--@')) {
