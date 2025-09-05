@@ -1,7 +1,7 @@
 function getVersionUrl(version) {
     const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
     if (!version.startsWith('--@')) {
-        return `air:error [${timestamp}] Version must start with --@ (e.g. --@latest)`;
+        return `bm:error [${timestamp}] Version must start with --@ (e.g. --@latest)`;
     }
     
     const cleanVersion = version.replace('--', '');
@@ -12,7 +12,7 @@ function getVersionUrl(version) {
     } else if (cleanVersion.startsWith('@')) {
         url = `https://cdn.jsdelivr.net/gh/pegalos/airos-kraken${cleanVersion}/test.js`;
     } else {
-        return `air:error [${timestamp}] Invalid version format. Use --@latest or --@<version>`;
+        return `bm:error [${timestamp}] Invalid version format. Use --@latest or --@<version>`;
     }
     
     return loadScript(url);
@@ -24,5 +24,24 @@ function loadScript(url) {
     script.onload = () => console.log(`bm:loaded [${new Date().toISOString().replace('T', ' ').split('.')[0]}] ${url}`);
     script.onerror = () => console.error(`bm:error [${new Date().toISOString().replace('T', ' ').split('.')[0]}] Failed to load ${url}`);
     document.head.appendChild(script);
-    return `air:loading [${new Date().toISOString().replace('T', ' ').split('.')[0]}] ${url}`;
+    return `bm:loading [${new Date().toISOString().replace('T', ' ').split('.')[0]}] ${url}`;
 }
+
+function handleBlocksCommand(args) {
+    const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
+    const cmdArgs = args.slice(1);
+
+    const firstArg = cmdArgs[0];
+    const secondArg = cmdArgs[1];
+
+    if (firstArg === '-i' || firstArg === '--install') {
+        if (!secondArg) {
+            return `bm:error [${timestamp}] Version argument required (--@latest or --@<version>)`;
+        }
+        return getVersionUrl(secondArg);
+    } else {
+        return `bm:usage [${timestamp}] Usage: bm -i --@latest`;
+    }
+}
+
+return handleBlocksCommand(args);
