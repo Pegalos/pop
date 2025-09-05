@@ -34,13 +34,22 @@ function handleBlocksCommand(args) {
     const firstArg = cmdArgs[0];
     const secondArg = cmdArgs[1];
 
+    if (firstArg === 'test') {
+        if (typeof window.bmTestCommand === 'function') {
+            return window.bmTestCommand(['test']);
+        } else {
+            return `bm:error [${timestamp}] test.js is not loaded yet. Use: bm -i --@latest to load it first.`;
+        }
+    }
+
+    // Handle install command
     if (firstArg === '-i' || firstArg === '--install') {
         if (!secondArg) {
             return `bm:error [${timestamp}] Version argument required (--@latest or --@<version>)`;
         }
         return getVersionUrl(secondArg);
     } else {
-        return `bm:usage [${timestamp}] Usage: bm -i --@latest`;
+        return `bm:usage [${timestamp}] Usage: bm -i --@latest OR bm test`;
     }
 }
 
