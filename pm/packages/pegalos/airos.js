@@ -8,9 +8,9 @@ function getVersionUrl(version) {
     let url;
     
     if (cleanVersion === '@latest') {
-        url = 'https://cdn.jsdelivr.net/gh/blockscorp/blocksos@latest/blocksinit.js';
+        url = 'https://cdn.jsdelivr.net/gh/pegalos/airos-kraken@latest/test.js';
     } else if (cleanVersion.startsWith('@')) {
-        url = `https://cdn.jsdelivr.net/gh/blockscorp/blocksos${cleanVersion}/blocksinit.js`;
+        url = `https://cdn.jsdelivr.net/gh/pegalos/airos-kraken${cleanVersion}/test.js`;
     } else {
         return `air:error [${timestamp}] Invalid version format. Use --@latest or --@<version>`;
     }
